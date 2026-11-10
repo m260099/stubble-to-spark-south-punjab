@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- All negotiation math (stubble tonnage, rush surcharge, deficit, subsidy cap, CO2) lives in the pure module `src/lib/faza-engine.ts`, covered by `src/lib/faza-engine.test.ts`; UI only renders its result. Why: deterministic, testable, no model-generated numbers.
+- The AI model is called only from `src/lib/extract.functions.ts` to parse farmer text into fields; the client falls back to the regex parser in `src/lib/faza-parse.ts` on failure. Why: demo must never break on network/credits.
+- Leaflet and Chart.js are dynamically imported inside effects. Why: both touch browser globals and would break server rendering.

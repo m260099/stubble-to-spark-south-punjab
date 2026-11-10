@@ -1,23 +1,47 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { AuthView } from "@/components/faza/AuthView";
+import { Dashboard } from "@/components/faza/Dashboard";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "FAZA - AI Agricultural Negotiator" },
+      {
+        name: "description",
+        content:
+          "FAZA connects South Punjab farmers to biomass power plants with LLM parsing and a deterministic subsidy engine to stop crop burning.",
+      },
+      { property: "og:title", content: "FAZA - AI Agricultural Negotiator" },
+      {
+        property: "og:description",
+        content: "Hybrid AI stubble-to-fuel negotiator: LLM parsing plus a zero-hallucination financial rules engine.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [view, setView] = useState<"auth" | "dashboard">("auth");
+  // Dashboard mounts on first launch and stays mounted so map, chart and inputs persist across Exit Demo.
+  const [launched, setLaunched] = useState(false);
+
+  const handleLogin = () => {
+    setLaunched(true);
+    setView("dashboard");
+  };
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="font-sans antialiased">
+      {view === "auth" && <AuthView onLaunch={handleLogin} />}
+      {launched && (
+        <div className={view === "dashboard" ? "" : "hidden"}>
+          <Dashboard visible={view === "dashboard"} onExit={() => setView("auth")} />
+        </div>
+      )}
     </div>
   );
 }

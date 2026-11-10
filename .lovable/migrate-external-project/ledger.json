@@ -1,0 +1,11 @@
+{
+  "source": "pasted HTML (single-file SPA, truncated after map tile setup)",
+  "capabilities": [
+    {"capability": "UI views (demo portal + dashboard)", "source": "HTML", "outcome": "migrate", "status": "migrated", "next_action": null},
+    {"capability": "Leaflet logistics map", "source": "HTML (partially truncated)", "outcome": "migrate + reconstruct markers/route", "status": "migrated", "next_action": null},
+    {"capability": "Chart.js CO2 donut", "source": "HTML (truncated)", "outcome": "reconstruct", "status": "migrated", "next_action": null},
+    {"capability": "Deterministic rules engine (4 stages, subsidy pool)", "source": "HTML (truncated)", "outcome": "reconstruct with explicit constants", "status": "migrated", "next_action": "User may supply original runNegotiation code to match exact constants"},
+    {"capability": "LLM extraction", "source": "simulated setTimeout", "outcome": "real Lovable AI Gateway call with offline fallback parser", "status": "migrated", "next_action": null},
+    {"capability": "database / auth / storage / payments / webhooks", "source": "none detected", "outcome": "not applicable", "status": "verified", "next_action": null}
+  ]
+}
